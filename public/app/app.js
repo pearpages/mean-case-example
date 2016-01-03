@@ -8,11 +8,3 @@ app.config(function($routeProvider, $locationProvider) {
             controllerAs: 'vm'
         });
 });
-
-app.controller('MainController', [MainController]);
-
-function MainController() {
-    var vm = this;
-
-    vm.myVar = 'Hello Angular';
-}
