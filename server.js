@@ -1,5 +1,6 @@
-var app = require('express')();
-var stylus = require('styles');
+var express = require('express');
+var app = express();
+var stylus = require('stylus');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 
@@ -12,7 +13,6 @@ setMiddleware();
 
 app.listen(port);
 console.log('Listening on port ' + port + '...');
-
 
 function setViews() {
     app.set('views', './server/views');
