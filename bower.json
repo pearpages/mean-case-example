@@ -1,0 +1,19 @@
+{
+  "name": "mean-case-example",
+  "description": "## Walking Skeleton",
+  "main": "index.js",
+  "authors": [
+    "pearpages <pere@soms.cat>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/pearpages/mean-case-example",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendor",
+    "test",
+    "tests"
+  ]
+}
