@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/pearpages/mean-case-example#readme",
   "dependencies": {
+    "body-parser": "^1.14.2",
     "express": "^4.13.3",
-    "jade": "^1.11.0"
+    "jade": "^1.11.0",
+    "morgan": "^1.6.1",
+    "stylus": "^0.53.0"
   }
 }
