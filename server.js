@@ -47,12 +47,19 @@ function setMiddleware() {
     }));
     app.use(express.static('./public')); //static server
 
-    // app.get('/partials/:partialPath', function(req, res) {
-    //     res.render('partials/' + req.params.partialPath);
-    // });
-    // 
+    //partials routing example 1
+        // app.get('/partials/:partialPath', function(req, res) {
+        //     res.render('partials/' + req.params.partialPath);
+        // });
+    
+    //partials routing example 2
+        // app.get('/partials/*', function(req, res) {
+        //     res.render('partials/' + req.params[0]);
+        // });
+    
     app.get('/partials/*', function(req, res) {
-        res.render('partials/' + req.params[0]);
+        //bear in mind that we've defined the views folder in /server/views
+        res.render('../../public/app/' + req.params[0]);
     });
 
     function compile(str, path) {
