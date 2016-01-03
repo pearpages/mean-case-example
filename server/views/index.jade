@@ -1,7 +1,19 @@
 extends ../includes/layout
 
 block main-content
+    .navbar.navbar-inverse.navbar-fixed-top
+        .container
+            .navbar-header
+                a.navbar-brand(href="#/") Mean
+            .navbar-collapse.collapse
+                ul.nav.navbar-nav
+                    li
+                        a(href="#/") Home
+
     section.content
         div(ng-view)
-    h2= mongoMessage
-    h3= hello
+    
+    footer.container.text-center
+        p mean @pearpages 
+        p= mongoMessage 
+        p= hello
