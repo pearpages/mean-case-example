@@ -47,8 +47,12 @@ function setMiddleware() {
     }));
     app.use(express.static('./public')); //static server
 
-    app.get('/partials/:partialPath', function(req, res) {
-        res.render('partials/' + req.params.partialPath);
+    // app.get('/partials/:partialPath', function(req, res) {
+    //     res.render('partials/' + req.params.partialPath);
+    // });
+    // 
+    app.get('/partials/*', function(req, res) {
+        res.render('partials/' + req.params[0]);
     });
 
     function compile(str, path) {
