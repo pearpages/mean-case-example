@@ -36,6 +36,10 @@ function setMiddleware() {
     }));
     app.use(express.static('./public')); //static server
 
+    app.get('/partials/:partialPath', function (req,res) {
+        res.render('partials/' + req.params.partialPath);
+    });
+
     function compile(str, path) {
         return stylus(str).set('filename', path);
     }
