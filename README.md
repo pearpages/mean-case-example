@@ -37,3 +37,5 @@ $resource – $resouce is good for situations that are slightly more complex tha
 ### restangular
 
 Restangular – Restangular is a perfect option for complex operations on the client side. It lets you easily attach custom behaviors and interact with your data in much the same way as other model paradigms you’ve used in the past. It’s promise-based, clean, and feature-rich. However, it might be overkill if your needs are basic, and it carries along with it any extra implications that come with bringing in additional third-party dependencies.
+
+## Authentication 
