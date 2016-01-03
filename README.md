@@ -12,6 +12,7 @@
 
 - Express
 - Jade
+- nodemon
 
 ## .bowerrc
 
