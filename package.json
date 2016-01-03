@@ -1,0 +1,23 @@
+{
+  "name": "mean-case-example",
+  "version": "1.0.0",
+  "description": "## Walking Skeleton",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pearpages/mean-case-example.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pearpages/mean-case-example/issues"
+  },
+  "homepage": "https://github.com/pearpages/mean-case-example#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "jade": "^1.11.0"
+  }
+}
