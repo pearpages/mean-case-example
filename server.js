@@ -8,8 +8,8 @@ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var port = 3030;
 
 setViews();
+setMiddleware(); //because we sue static files, it's important this comes before the router
 settingRoutes();
-setMiddleware();
 
 app.listen(port);
 console.log('Listening on port ' + port + '...');
