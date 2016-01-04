@@ -72,13 +72,13 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function (id, done) {
-	User.findOne({_id:id}).exec(function(err, user)) {
+	User.findOne({_id:id}).exec(function(err, user) {
 		if(user){
 			return done(null,user);
 		} else{
 			return done(null,false);
 		}
-	}
+	});
 });
 ```
 
@@ -86,7 +86,7 @@ Routes
 
 ```javascript
 app.post('/login', function(req, res, next) {
-    var auth = passport.authenticate('local', funtion(err,user) { //we are invoking the LocalStrategy we've created
+    var auth = passport.authenticate('local', function(err,user) { //we are invoking the LocalStrategy we've created
         if(err) {
             return next(err);
         }
@@ -97,8 +97,8 @@ app.post('/login', function(req, res, next) {
         req.logIn(user, function(err) { //this is usually done automatically but we are using an XHR post
             if(err) {
                 return next(err);
-                res.send({success:true, user: user});
             }
+            res.send({success:true, user: user});
         });
     });
 

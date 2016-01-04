@@ -7,9 +7,9 @@ var session = require('express-session');
 var passport = require('passport');
 
 module.exports = function (app,config) {
-    setMiddleware();
     setViews();
-
+    setMiddleware();
+    
     function setMiddleware() {
         app.use(logger('dev'));
         // required for sessions, needs to go before the bodyParser
