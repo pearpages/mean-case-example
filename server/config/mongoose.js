@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var crypto = require('crypto');
 
 module.exports = function(config) {
 
@@ -30,29 +31,56 @@ module.exports = function(config) {
         var userSchema = mongoose.Schema({
             firstName: String,
             lastName: String,
-            username: String
+            username: String,
+            salt: String,
+            hashed_pwd: String
         });
 
         var User = mongoose.model('User', userSchema); //We define the model here
 
         User.find({}).exec(function(err, collection) {
             if (collection.length === 0) {
+                var salt,hash;
+
+                salt = createSalt();
+                hash = hashPwd(salt,'ppages');
                 User.create({
                     firstName: 'Pere',
                     lastName: 'Pages',
-                    username: 'ppages'
+                    username: 'ppages',
+                    salt: salt,
+                    hashed_pwd: hash
                 });
+
+                salt = createSalt();
+                hash = hashPwd(salt,'jsmith');
                 User.create({
                     firstName: 'John',
                     lastName: 'Smith',
-                    username: 'jsmith'
+                    username: 'jsmith',
+                    salt: salt,
+                    hashed_pwd: hash
                 });
+
+                salt = createSalt();
+                hash = hashPwd(salt,'whunting');
                 User.create({
                     firstName: 'Will',
                     lastName: 'Hunting',
-                    username: 'whunting'
+                    username: 'whunting',
+                    salt: salt,
+                    hashed_pwd: hash
                 });
             }
         });
+    }
+
+    function createSalt() {
+        return crypto.randomBytes(128).toString('base64');
+    }
+
+    function hashPwd(salt, pwd) {
+        var hmac = crypto.createHmac('sha1', salt);
+        return hmac.update(pwd).digest('hex');
     }
 };

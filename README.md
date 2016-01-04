@@ -52,6 +52,7 @@ LocalStrategy = require('passport-local').Strategy; //it means we use a password
 
 var User = mongoose.model('User'); //we pull the model here that we've created in the mongoose.js file
 passport.use(new LocalStrategy(
+    // it's important we get the username and password, otherwise it fails
     function(username, password, done) {
         User.findOne({
             username: username
@@ -151,3 +152,10 @@ User.find({}).exec(function(err, collection) {
     }
 });
 ```
+
+## Secure Passwords
+
+```
+Clear text + Salt -> Hashing Algorithm -> Hashed Password
+```
+
