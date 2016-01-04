@@ -1,3 +1,5 @@
+var passport = require('passport');
+
 module.exports = function(app,config) {
 
     settingRoutes();
@@ -17,6 +19,26 @@ module.exports = function(app,config) {
         app.get('/partials/*', function(req, res) {
             //bear in mind that we've defined the views folder in /server/views
             res.render('../../public/app/' + req.params[0]);
+        });
+
+        app.post('/login', function(req, res, next) {
+            var auth = passport.authenticate('local', funtion(err,user) { //we are invoking the LocalStrategy we've created
+                if(err) {
+                    return next(err);
+                }
+                if(!user) {
+                    res.send({success:false});
+                }
+                // logIn is a function that passport adds to the request object
+                req.logIn(user, function(err) { //this is usually done automatically but we are using an XHR post
+                    if(err) {
+                        return next(err);
+                        res.send({success:true, user: user});
+                    }
+                });
+            });
+
+            auth(req,res,next);
         });
 
         //this is dangerous because we are accepting all routes
