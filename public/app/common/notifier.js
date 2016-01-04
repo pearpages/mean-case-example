@@ -8,7 +8,6 @@
 		return {
 			notify: function(msg) {
 				toastr.success(msg);
-				console.log(msg);
 			}
 		}
 	}

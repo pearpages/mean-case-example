@@ -1,5 +1,5 @@
 .navbar-right(ng-controller="BarLoginController as vm")
-    form.navbar-form
+    form.navbar-form(ng-hide="vm.currentUser.currentUser !== undefined")
         .form-group
             input.form-control(placeholder="Email", ng-model="vm.username")
         .form-group

@@ -5,11 +5,12 @@
 	.factory('identify',[identify]);
 
 	function identify() {
-		return {
-			currentUser: undefined,
-			isAuthenticated: function() {
-				return !!this.currentUser;
-			}
+
+		this.currentUser = undefined;
+		this.isAuthenticated = function() {
+			return !!this.currentUser;
 		}
+
+		return this;
 	}
 })();
