@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module("app")
-    .controller('BarLoginController',['$http',BarLoginController]);
+    .controller('BarLoginController',['$http','notifier','identify',BarLoginController]);
 
-    function BarLoginController($http) {
+    function BarLoginController($http,notifier,identify) {
         var vm = this;
 
         vm.signin = signin;
@@ -14,9 +14,10 @@
         function signin() {
             $http.post('/login', {username:vm.username, password:vm.password}).then(function(response) {
                 if(response.data.success) {
-                    console.log('logged in!');
+                    identify.currentUser = response.data.user;
+                    notifier.notify('logged in!');
                 } else {
-                    console.log('logging failure');
+                    notifier.notify('logging failure');
                 }
             });
         }
