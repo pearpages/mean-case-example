@@ -1,4 +1,7 @@
 var auth = require('./auth');
+var mongoose = require('mongoose');
+
+User = mongoose.model('User');
 
 module.exports = function(app,config) {
 
@@ -19,6 +22,12 @@ module.exports = function(app,config) {
         app.get('/partials/*', function(req, res) {
             //bear in mind that we've defined the views folder in /server/views
             res.render('../../public/app/' + req.params[0]);
+        });
+
+        app.get('/api/users', function(req,res) {
+            User.find({}).exec(function(err,collection) {
+                res.send(collection);
+            });
         });
 
         app.post('/login', auth.authenticate);
