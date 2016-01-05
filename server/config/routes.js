@@ -24,7 +24,7 @@ module.exports = function(app,config) {
             res.render('../../public/app/' + req.params[0]);
         });
 
-        app.get('/api/users', function(req,res) {
+        app.get('/api/users', auth.requiresApiLogin, function(req,res) {
             User.find({}).exec(function(err,collection) {
                 res.send(collection);
             });

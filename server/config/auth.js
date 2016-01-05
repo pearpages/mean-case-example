@@ -26,7 +26,27 @@ exports.authenticate = function(req, res, next) {
     auth(req, res, next);
 };
 
+exports.requiresApiLogin = function(req, res, next) {
+    if (!req.isAuthenticated()) { // passport function
+        res.status(403);
+        res.end();
+    } else {
+        next();
+    }
+};
+
 exports.logout = function(req, res) {
     req.logout(); //added by the passport module
     res.end();
+};
+
+exports.requiresRole = function (role) {
+    return function (req, res, next) {
+        if(!req.isAuthenticated() || req.user.roles.indexOf(role) === -1) {
+            res.status(403);
+            res.end();
+        } else {
+            next();
+        }
+    };
 };
