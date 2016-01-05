@@ -36,6 +36,12 @@ module.exports = function(config) {
             hashed_pwd: String
         });
 
+        userSchema.methods = {
+            authenticate: function(passwordToMatch) {
+                return hashPwd(this.salt, passwordToMatch) === this.hashed_pwd;
+            }
+        };
+
         var User = mongoose.model('User', userSchema); //We define the model here
 
         User.find({}).exec(function(err, collection) {

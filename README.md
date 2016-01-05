@@ -159,3 +159,55 @@ User.find({}).exec(function(err, collection) {
 Clear text + Salt -> Hashing Algorithm -> Hashed Password
 ```
 
+```javascript
+require('crypto');
+
+function createSalt() {
+    return crypto.randomBytes(128).toString('based64');
+}
+
+function hasPwd(salt, pwd) {
+    var hmac = crypto.createHmac('sha1', salt);
+    return hmac.update(pwd).digest('hex');
+}
+```
+
+LocalStrategy with validation function
+
+```javascript
+var User = mongoose.model('User'); //we pull the model here that we've created in the mongoose.js file
+passport.use(new LocalStrategy(
+    function(username, password, done) {
+        User.findOne({
+            username: username
+        }).exec(function(err, user) {
+            if(err){
+                console.log('error calling mongodb');
+            }
+            if (user && user.authenticate(password)) { // <-- validation function
+                return done(null, user);
+            } else {
+                return done(null, false);
+            }
+        });
+    }
+));
+```
+
+Mongo Schema
+
+```javascript
+var userSchema = mongoose.Schema({
+    firstName: String,
+    lastName: String,
+    username: String,
+    salt: String,
+    hashed_pwd: String
+});
+
+userSchema.methods = {
+    authenticate: function(passwordToMatch) {
+        return hashPwd(this.salt, passwordToMatch) === this.hashed_pwd;
+    }
+};
+```

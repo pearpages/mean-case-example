@@ -21,7 +21,7 @@ passport.use(new LocalStrategy(
             if(err){
                 console.log('error calling mongodb');
             }
-            if (user) {
+            if (user && user.authenticate(password)) { //authentiaction
                 return done(null, user);
             } else {
                 return done(null, false);
