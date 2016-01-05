@@ -2,11 +2,16 @@
 	'use strict';
 
 	angular.module("app")
-	.factory('identify',[identify]);
+	.factory('identify',['$window',identify]);
 
-	function identify() {
+	function identify($window) {
 
-		this.currentUser = undefined;
+		if(!!$window.bootstrappedUserObject) {
+			this.currentUser = $window.bootstrappedUserObject;
+		} else {
+			this.currentUser = undefined;	
+		}
+		
 		this.isAuthenticated = function() {
 			return !!this.currentUser;
 		}

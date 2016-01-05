@@ -29,7 +29,8 @@ module.exports = function(app,config) {
         app.get('*', function(req, res) {
             res.render('index', {
                 mongoMessage: config.mongoMessage,
-                hello: 'hello'
+                hello: 'hello',
+                bootstrappedUser: req.user //added by passport
             });
         });
     }

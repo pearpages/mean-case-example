@@ -224,3 +224,50 @@ app.post('/logout', function(req, res) {
     res.end();
 });
 ```
+
+## Persist the user in the client side
+
+So in the template we can pass the user info. Although that's not very safe.
+
+```javascript
+app.get('*', function(req, res) {
+    res.render('index', {
+        bootstrappedUser: req.user //added by passport
+    });
+});
+```
+
+The template
+
+```jade
+if !!bootstrappedUser
+    script.
+        window.bootstrappedUserObject = !{JSON.stringify(bootstrappedUser)}
+```
+
+In the Client Side. Factory
+
+```javascript
+(function() {
+    'use strict';
+
+    angular.module("app")
+    .factory('identify',['$window',identify]);
+
+    function identify($window) {
+
+        if(!!$window.bootstrappedUserObject) {
+            this.currentUser = $window.bootstrappedUserObject;
+        } else {
+            this.currentUser = undefined;   
+        }
+        
+        this.isAuthenticated = function() {
+            return !!this.currentUser;
+        }
+
+        return this;
+    }
+})();
+```
+
