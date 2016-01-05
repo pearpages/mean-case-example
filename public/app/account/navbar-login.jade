@@ -7,8 +7,10 @@
 		button.btn.btn-primary(ng-click="vm.signin()") Sign in
 	ul.nav.navbar-nav.navbar-right(ng-show="vm.identify.isAuthenticated()")
 		li.dropdown
-			a.dropdown-toggle(href="", data-toggle="dropdown") {{vm.identify.currentUser.firstName + " " + vm.identify.currentUser.lastName}}
+			a.dropdown-toggle(href="", data-toggle="dropdown") {{vm.identify.getCurrentUser().firstName + " " + vm.identify.getCurrentUser().lastName}}
 				b.caret
 			ul.dropdown-menu
+				li(ng-show="vm.identify.getCurrentUser().isAdmin()")
+					a(href="#/admin/user") User Admin
 				li 
 					a(href="", ng-click="vm.signout()") Sign Out

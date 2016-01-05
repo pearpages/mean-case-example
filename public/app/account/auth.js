@@ -2,20 +2,22 @@
 	'use strict';
 
 	angular.module("app")
-	.factory('auth',['$http','identify','$q',auth]);
+	.factory('auth',['$http','identify','$q','User',auth]);
 
-	function auth($http,identify,$q) {
+	function auth($http,identify,$q,User) {
 		return {
 		    authenticateUser: authenticateUser,
 		    logoutUser: logoutUser
-		}
+		};
 
 		function authenticateUser(username, password) {
 			var dfd = $q.defer();
 
 			$http.post('/login', {username:username, password:password}).then(function(response) {
                 if(response.data.success) {
-                    identify.currentUser = response.data.user;
+                    var user = new User();
+                    angular.extend(user, response.data.user);
+                    identify.setCurrentUser(user);
                     dfd.resolve(true);
                 } else {
                     dfd.resolve(false);

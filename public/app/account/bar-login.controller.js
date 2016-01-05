@@ -29,6 +29,7 @@
                 vm.username = '';
                 vm.password = '';
                 notifier.notify('You have successfully signed out');
+                vm.identify.setCurrentUser(undefined);
                 $location.path('/');
             });
         }

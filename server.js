@@ -11,7 +11,6 @@ require('./server/config/mongoose')(config);
 require('./server/config/passport')();
 require('./server/config/routes')(app, config);
 
-
 run();
 
 function run() {

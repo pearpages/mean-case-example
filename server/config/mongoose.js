@@ -33,7 +33,8 @@ module.exports = function(config) {
             lastName: String,
             username: String,
             salt: String,
-            hashed_pwd: String
+            hashed_pwd: String,
+            roles: [String]
         });
 
         userSchema.methods = {
@@ -55,7 +56,8 @@ module.exports = function(config) {
                     lastName: 'Pages',
                     username: 'ppages',
                     salt: salt,
-                    hashed_pwd: hash
+                    hashed_pwd: hash,
+                    roles: ['admin']
                 });
 
                 salt = createSalt();
@@ -65,7 +67,8 @@ module.exports = function(config) {
                     lastName: 'Smith',
                     username: 'jsmith',
                     salt: salt,
-                    hashed_pwd: hash
+                    hashed_pwd: hash,
+                    roles: []
                 });
 
                 salt = createSalt();
@@ -75,7 +78,8 @@ module.exports = function(config) {
                     lastName: 'Hunting',
                     username: 'whunting',
                     salt: salt,
-                    hashed_pwd: hash
+                    hashed_pwd: hash,
+                    roles: []
                 });
             }
         });
