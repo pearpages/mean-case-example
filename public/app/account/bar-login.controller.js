@@ -10,7 +10,7 @@
         vm.signin = signin;
         vm.username = '';
         vm.password = '';
-        vm.currentUser = identify;
+        vm.identify = identify;
 
         function signin() {
             auth.authenticateUser(vm.username,vm.password)

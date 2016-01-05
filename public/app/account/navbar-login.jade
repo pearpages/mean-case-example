@@ -1,7 +1,14 @@
 .navbar-right(ng-controller="BarLoginController as vm")
-    form.navbar-form(ng-hide="vm.currentUser.currentUser !== undefined")
-        .form-group
-            input.form-control(placeholder="Email", ng-model="vm.username")
-        .form-group
-            input.form-control(type="password",placeholder="Password", ng-model="vm.password")
-        button.btn.btn-primary(ng-click="vm.signin()") Sign in
+	form.navbar-form(ng-hide="vm.identify.isAuthenticated()")
+		.form-group
+			input.form-control(placeholder="Email", ng-model="vm.username")
+		.form-group
+			input.form-control(type="password",placeholder="Password", ng-model="vm.password")
+		button.btn.btn-primary(ng-click="vm.signin()") Sign in
+	ul.nav.navbar-nav.navbar-right(ng-show="vm.identify.isAuthenticated()")
+		li.dropdown
+			a.dropdown-toggle(href="", data-toggle="dropdown") {{vm.identify.currentUser.firstName + " " + vm.identify.currentUser.lastName}}
+				b.caret
+			ul.dropdown-menu
+				li 
+					a(href="", ng-click="signout()") Sign Out
