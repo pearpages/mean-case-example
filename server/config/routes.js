@@ -23,6 +23,8 @@ module.exports = function(app,config) {
 
         app.post('/login', auth.authenticate);
 
+        app.post('/logout', auth.logout);
+
         //this is dangerous because we are accepting all routes
         app.get('*', function(req, res) {
             res.render('index', {

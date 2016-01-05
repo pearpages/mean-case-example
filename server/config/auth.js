@@ -25,3 +25,8 @@ exports.authenticate = function(req, res, next) {
     req.body.password = req.body.password || 'any'; //hack, I don't know why, it doesn't work with blank passwords
     auth(req, res, next);
 };
+
+exports.logout = function(req, res) {
+    req.logout(); //added by the passport module
+    res.end();
+};

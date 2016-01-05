@@ -6,7 +6,8 @@
 
 	function auth($http,identify,$q) {
 		return {
-			authenticateUser: authenticateUser
+		    authenticateUser: authenticateUser,
+		    logoutUser: logoutUser
 		}
 
 		function authenticateUser(username, password) {
@@ -22,6 +23,16 @@
             });
 
             return dfd.promise;
+		}
+
+		function logoutUser() {
+			var dfd = $q.defer();
+			$http.post('/logout', {logout: true}).then(function () {
+				identify.currentUser = undefined;
+				dfd.resolve();
+			});
+
+			return dfd.promise;
 		}
 	}
 })();

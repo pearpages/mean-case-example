@@ -41,6 +41,8 @@ Restangular – Restangular is a perfect option for complex operations on the cl
 
 ## Authentication 
 
+By default, if authentication fails, Passport will respond with a 401 Unauthorized status, and any additional route handlers will not be invoked. If authentication succeeds, the next handler will be invoked and the **req.user** property will be set to the authenticated user.
+
 ### Using passport-local
 
 It means we use a password and user that we keep in our own db.
@@ -210,4 +212,15 @@ userSchema.methods = {
         return hashPwd(this.salt, passwordToMatch) === this.hashed_pwd;
     }
 };
+```
+
+## logout in the server side
+
+The server keeps track of the session.
+
+```javascript
+app.post('/logout', function(req, res) {
+    req.logout(); //added by the passport module
+    res.end();
+});
 ```
