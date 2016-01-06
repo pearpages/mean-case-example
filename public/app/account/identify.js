@@ -21,6 +21,9 @@
 			},
 			isAuthenticated: function() {
 				return !!currentUser;
+			},
+			isAuthorized: function (role) {
+				return currentUser && currentUser.roles.indexOf(role) > -1 ;
 			}
 		};
 	}

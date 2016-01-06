@@ -1,8 +1,16 @@
 var app = angular.module('app', ['ngResource', 'ngRoute']);
 
-app.value('toastr',toastr); //toastr is not an angular module, it's a javascript library made with jquery
+app.value('toastr', toastr); //toastr is not an angular module, it's a javascript library made with jquery
 
 app.config(function($routeProvider, $locationProvider) {
+    var routeRoleChecks = {
+        admin: {
+            auth: function(auth) {
+                return auth.authorizeCurrentUserForRoute('admin');
+            }
+        }
+    };
+
     $routeProvider
         .when('/', {
             templateUrl: '/partials/main/main',
@@ -13,21 +21,13 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: '/partials/admin/user-list',
             controller: 'UserListController',
             controllerAs: 'vm',
-            resolve: {
-                auth : function (identify, $q) {
-                    if(identify.getCurrentUser() && identify.getCurrentUser().roles.indexOf('admin') > -1){
-                        return true;
-                    } else {
-                        return $q.reject('not authorized');
-                    }
-                }
-            }
+            resolve: routeRoleChecks.admin
         });
 });
 
-app.run(function ($rootScope, $location) {
+app.run(function($rootScope, $location) {
     $rootScope.$on('$routeChangeError', function(evt, current, previous, rejection) {
-        if(rejection === 'not authorized') {
+        if (rejection === 'not authorized') {
             $location.path('/');
         }
     });
