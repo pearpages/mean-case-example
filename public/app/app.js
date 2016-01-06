@@ -22,6 +22,11 @@ app.config(function($routeProvider, $locationProvider) {
             controller: 'UserListController',
             controllerAs: 'vm',
             resolve: routeRoleChecks.admin
+        })
+        .when('/signup', {
+            templateUrl: '/partials/account/signup',
+            controller: 'SignupController',
+            controllerAs: 'vm'
         });
 });
 

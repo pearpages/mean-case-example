@@ -8,8 +8,23 @@
         return {
             authenticateUser: authenticateUser,
             logoutUser: logoutUser,
-            authorizeCurrentUserForRoute: authorizeCurrentUserForRoute
+            authorizeCurrentUserForRoute: authorizeCurrentUserForRoute,
+            createUser: createUser
         };
+
+        function createUser(newUserData) {
+            var newUser = new User(newUserData);
+            var dfd = $q.defer();
+
+            newUser.$save().then(function() {
+                identify.setCurrentUser(newUser);
+                dfd.resolve();
+            }, function(response) {
+                dfd.reject(response.data.resason);
+            });
+
+            return dfd.promise;
+        }
 
         function authenticateUser(username, password) {
             var dfd = $q.defer();

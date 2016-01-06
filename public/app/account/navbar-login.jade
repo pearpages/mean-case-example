@@ -1,5 +1,8 @@
 .navbar-right(ng-controller="BarLoginController as vm")
 	form.navbar-form(ng-hide="vm.identify.isAuthenticated()")
+		ul.nav.navbar-nav
+			li
+				a(href="/signup") Sign up
 		.form-group
 			input.form-control(placeholder="Email", ng-model="vm.username")
 		.form-group
