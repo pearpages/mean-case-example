@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var crypto = require('crypto');
+var encryption = require('../utilities/encryption');
 
 module.exports = function(config) {
 
@@ -39,7 +39,7 @@ module.exports = function(config) {
 
         userSchema.methods = {
             authenticate: function(passwordToMatch) {
-                return hashPwd(this.salt, passwordToMatch) === this.hashed_pwd;
+                return utilities.hashPwd(this.salt, passwordToMatch) === this.hashed_pwd;
             }
         };
 
@@ -49,8 +49,8 @@ module.exports = function(config) {
             if (collection.length === 0) {
                 var salt,hash;
 
-                salt = createSalt();
-                hash = hashPwd(salt,'ppages');
+                salt = utilities.createSalt();
+                hash = utilities.hashPwd(salt,'ppages');
                 User.create({
                     firstName: 'Pere',
                     lastName: 'Pages',
@@ -60,8 +60,8 @@ module.exports = function(config) {
                     roles: ['admin']
                 });
 
-                salt = createSalt();
-                hash = hashPwd(salt,'jsmith');
+                salt = utilities.createSalt();
+                hash = utilities.hashPwd(salt,'jsmith');
                 User.create({
                     firstName: 'John',
                     lastName: 'Smith',
@@ -71,8 +71,8 @@ module.exports = function(config) {
                     roles: []
                 });
 
-                salt = createSalt();
-                hash = hashPwd(salt,'whunting');
+                salt = utilities.createSalt();
+                hash = utilities.hashPwd(salt,'whunting');
                 User.create({
                     firstName: 'Will',
                     lastName: 'Hunting',
@@ -85,12 +85,5 @@ module.exports = function(config) {
         });
     }
 
-    function createSalt() {
-        return crypto.randomBytes(128).toString('base64');
-    }
 
-    function hashPwd(salt, pwd) {
-        var hmac = crypto.createHmac('sha1', salt);
-        return hmac.update(pwd).digest('hex');
-    }
 };

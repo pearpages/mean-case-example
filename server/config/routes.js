@@ -2,6 +2,7 @@ var auth = require('./auth');
 var mongoose = require('mongoose');
 
 User = mongoose.model('User');
+var users = require('../controllers/users.controller.js');
 
 module.exports = function(app,config) {
 
@@ -24,11 +25,9 @@ module.exports = function(app,config) {
             res.render('../../public/app/' + req.params[0]);
         });
 
-        app.get('/api/users', auth.requiresApiLogin, function(req,res) {
-            User.find({}).exec(function(err,collection) {
-                res.send(collection);
-            });
-        });
+        app.get('/api/users', auth.requiresApiLogin, users.getUsers);
+
+        app.post('/api/users', users.createUser);
 
         app.post('/login', auth.authenticate);
 
